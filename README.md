@@ -11,7 +11,6 @@ A Smart Campus Navigation application using Augmented Reality (AR) to enhance us
 4. [Documentation](#-documentation)
 5. [Architecture](#-architecture)
 6. [Features](#-features)
-7. [Acknowledgments](#-acknowledgments)
 
 ---
 
@@ -58,6 +57,7 @@ The project follows the MVVM (Model-View-ViewModel) architecture pattern to ensu
 + **Interactive UI**: Users can interact with the AR environment to get more information about specific locations.
 + **Responsive Design**: Optimized for various Android devices and screen sizes.
    
+
 
 
 
