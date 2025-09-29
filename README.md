@@ -8,9 +8,8 @@ A Smart Campus Navigation application using Augmented Reality (AR) to enhance us
 1. [Project Overview](#-project-overview)
 2. [Installation](#-installation)
 3. [Usage](#-usage)
-4. [Documentation](#-documentation)
-5. [Architecture](#-architecture)
-6. [Features](#-features)
+4. [Architecture](#-architecture)
+5. [Features](#-features)
 
 ---
 
@@ -40,9 +39,6 @@ After installing the application on an Android device:
 2.  Use the navigation menu to select a location or view detailed information about a specific area on the campus.
 3.  Follow the AR-based navigation cues to reach your destination.
 
-## 📄 Documentation
-Detailed documentation for this project can be found in the following Google Drive folder: [Project Documentation](https://drive.google.com/drive/folders/1r0-S5Q8p94ltqEWH3tZytd2wM67fj6aC?usp=drive_link).
-
 ## 🧩 **Architecture**
 The project follows the MVVM (Model-View-ViewModel) architecture pattern to ensure a modular and maintainable codebase.
 
@@ -57,6 +53,7 @@ The project follows the MVVM (Model-View-ViewModel) architecture pattern to ensu
 + **Interactive UI**: Users can interact with the AR environment to get more information about specific locations.
 + **Responsive Design**: Optimized for various Android devices and screen sizes.
    
+
 
 
 
