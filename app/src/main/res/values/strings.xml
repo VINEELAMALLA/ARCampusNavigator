@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArNavigator</string>
+    <string name="app_name">ARCampusNavigator</string>
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="username">Username</string>

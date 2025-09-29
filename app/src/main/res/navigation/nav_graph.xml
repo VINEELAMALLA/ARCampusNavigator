@@ -147,6 +147,14 @@
             app:exitAnim="@anim/to_right"
             app:popEnterAnim="@anim/to_left"
             app:popExitAnim="@anim/to_right"/>
+            
+        <action
+            android:id="@+id/action_Nav_to_initializeLocations"
+            app:destination="@id/initializeLocations"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/to_left"
+            app:popExitAnim="@anim/to_left" />
 
     </fragment>
     <fragment
@@ -206,4 +214,21 @@
             app:popEnterAnim="@anim/to_left"
             app:popExitAnim="@anim/to_left" />
     </fragment>
+    
+    <fragment
+        android:id="@+id/initializeLocations"
+        android:name="com.example.arnavigationapp.admin.all_location.InitializeLocationsFragment"
+        android:label="InitializeLocationsFragment"
+        tools:layout="@layout/fragment_initialize_locations">
+        <action
+            android:id="@+id/action_initializeLocations_to_Nav"
+            app:destination="@id/Nav"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/to_left"
+            app:popExitAnim="@anim/to_right"/>
+    </fragment>
+
+    <!-- Gvpce and Mvgr fragments removed; navigation returns to listing all locations -->
+
 </navigation>

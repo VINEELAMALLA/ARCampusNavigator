@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="732dp"
-    android:background="@drawable/background"
+    android:background="@drawable/bg1"
     tools:context=".admin.all_location.AllLocationsFragment">
+
+
+
+        <!-- Place the buttons inside the CardView's ConstraintLayout for proper stacking and clickability -->
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -16,22 +22,8 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
-
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="124dp"
-                android:layout_height="81dp"
-                android:layout_marginBottom="632dp"
-                android:contentDescription="hit logo"
-                android:scaleType="centerCrop"
-                android:src="@drawable/nobackgroundhitlogo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/btn_back"
@@ -56,7 +48,7 @@
                 app:boxStrokeColor="@color/gray"
                 app:hintTextColor="@color/gray"
                 app:cursorColor="@color/gray"
-                app:layout_constraintTop_toBottomOf="@id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/searchEditText"
@@ -77,8 +69,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/searchEditTextLayout"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <!-- Removed college buttons to show full list of predefined locations -->
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+    <!-- Only one closing tag for ConstraintLayout should be here -->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/confirmDeleteCardView"

@@ -12,6 +12,7 @@ import java.util.UUID
  * Fetches the locations from Firestore and updates the locationData LiveData object.
  * Provides functions to add and delete entries from Firestore.
  * Provides functions to upload an image to Firebase Storage and get the URL.
+ * Provides functions to initialize the database with predefined location data.
  */
 class FirestoreRepository {
 
@@ -194,4 +195,83 @@ class FirestoreRepository {
 
     // Data class to represent button data
     data class ButtonData(val x: Float, val y: Float, val text: String)
+    
+    /**
+     * Initialize the database with predefined location data
+     * @param collegeName Optional name of the college to initialize. If null, all colleges will be initialized.
+     * @param useCollegePrefix Whether to prefix block names with college names
+     * @param callback Callback function that will be called when initialization is complete
+     */
+    fun initializeWithCollegeData(
+        collegeName: String? = null,
+        useCollegePrefix: Boolean = true,
+        callback: (Boolean) -> Unit
+    ) {
+        // Get the location data to initialize
+        val locationsToAdd = if (collegeName != null) {
+            CollegeLocations.getCollegeLocations(collegeName, useCollegePrefix)
+        } else {
+            CollegeLocations.getAllLocationsData(useCollegePrefix)
+        }
+        
+        if (locationsToAdd.isEmpty()) {
+            Log.w("Firestore", "No locations to initialize")
+            callback(false)
+            return
+        }
+        
+        // Check if the database already has data
+        db.collection("buildings").get().addOnSuccessListener { result ->
+            // If there's already data, we'll clear it first
+            if (!result.isEmpty) {
+                // Delete existing data
+                val batch = db.batch()
+                for (document in result) {
+                    batch.delete(document.reference)
+                }
+                
+                batch.commit().addOnSuccessListener {
+                    // After clearing, add the new data
+                    addLocationsInBatch(locationsToAdd, callback)
+                }.addOnFailureListener { e ->
+                    Log.e("Firestore", "Error clearing existing data", e)
+                    callback(false)
+                }
+            } else {
+                // If no existing data, just add the new data
+                addLocationsInBatch(locationsToAdd, callback)
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Firestore", "Error checking for existing data", e)
+            callback(false)
+        }
+    }
+    
+    /**
+     * Add multiple locations to Firestore in a batch operation
+     */
+    private fun addLocationsInBatch(locations: List<LocationData>, callback: (Boolean) -> Unit) {
+        val batch = db.batch()
+        
+        for (location in locations) {
+            val docRef = db.collection("buildings").document()
+            val data = hashMapOf(
+                "id" to location.id,
+                "name" to location.name,
+                "location" to location.location,
+                "azimuth" to location.azimuth,
+                "description" to location.description,
+                "imgUrl" to location.imgUrl
+            )
+            batch.set(docRef, data)
+        }
+        
+        batch.commit().addOnSuccessListener {
+            Log.d("Firestore", "Successfully initialized with ${locations.size} locations")
+            callback(true)
+        }.addOnFailureListener { e ->
+            Log.e("Firestore", "Error initializing locations", e)
+            callback(false)
+        }
+    }
 }

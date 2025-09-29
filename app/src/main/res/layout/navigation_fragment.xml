@@ -5,7 +5,7 @@
     android:id="@+id/navigationFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/bg1"
     tools:context="com.example.arnavigationapp.ui.ui_activity.NavigationFragment">
 
     <androidx.cardview.widget.CardView
@@ -45,19 +45,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.579" />
 
-            <Button
-                android:id="@+id/btnMap"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:backgroundTint="@color/medium_blue"
-                android:text="@string/choose_from_map"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnStartNav"
-                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btnList"
@@ -70,34 +57,10 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnMap"
+                app:layout_constraintTop_toBottomOf="@id/btnStartNav"
                 android:visibility="gone" />
 
-            <Button
-                android:id="@+id/btnNews"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="#018186"
-                android:text="@string/hit_newsletter"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnList" />
 
-            <ImageView
-                android:layout_width="124dp"
-                android:layout_height="81dp"
-                android:layout_marginBottom="28dp"
-                android:contentDescription="hit logo"
-                android:scaleType="centerCrop"
-                android:src="@drawable/nobackgroundhitlogo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

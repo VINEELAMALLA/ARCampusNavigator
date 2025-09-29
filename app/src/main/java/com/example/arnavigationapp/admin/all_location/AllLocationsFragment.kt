@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.arnavigationapp.R
 import com.example.arnavigationapp.admin.all_location.model.LocationData
 import com.example.arnavigationapp.databinding.AllLocationsLayoutBinding
+import com.example.arnavigationapp.admin.all_location.model.CollegeLocations
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 
@@ -35,6 +36,12 @@ class AllLocationsFragment : Fragment() {
     private val viewModel: AdminViewModel by activityViewModels()
     private lateinit var adapter: LocationAdapter
 
+    // Use predefined locations from CollegeLocations
+    private val predefinedLocations: List<LocationData> = CollegeLocations.getAllLocationsData()
+
+    // Track selected college
+    private var selectedCollege: String? = null
+
     // Create view
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,8 +51,14 @@ class AllLocationsFragment : Fragment() {
         _binding = AllLocationsLayoutBinding.inflate(inflater, container, false)
         auth = FirebaseAuth.getInstance() // Get instance of Firebase authentication
         val currentUser = auth.currentUser?.email.toString()
-        setupRecyclerView(currentUser) // Setup RecyclerView
+
+        // Show all predefined locations by default
+        locationsList = predefinedLocations
+        setupRecyclerView(currentUser, predefinedLocations)
+        setupAdapter(predefinedLocations)
+
         binding.btnBack.setOnClickListener { returnToAdd() }
+
         val colorStateList =
             ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.gray))
         binding.searchEditTextLayout.defaultHintTextColor = colorStateList
@@ -77,13 +90,10 @@ class AllLocationsFragment : Fragment() {
     }
 
     // Setup RecyclerView
-    private fun setupRecyclerView(currentUser: String) {
-        viewModel.locationData.observe(viewLifecycleOwner) { allLocations ->
-            val sortedLocations = allLocations.sortedBy { it.name }
-            locationsList = sortedLocations
-            setupAdapter(sortedLocations) // Setup adapter for RecyclerView
-            setupItemTouchHelper(currentUser) // Setup item touch helper for RecyclerView
-        }
+    private fun setupRecyclerView(currentUser: String, initialLocations: List<LocationData>) {
+        locationsList = initialLocations
+        setupAdapter(initialLocations)
+        setupItemTouchHelper(currentUser)
     }
 
     // Setup adapter for RecyclerView

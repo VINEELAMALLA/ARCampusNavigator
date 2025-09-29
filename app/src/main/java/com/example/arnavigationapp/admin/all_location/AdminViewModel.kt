@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.arnavigationapp.admin.all_location.model.FirestoreRepository
 import com.example.arnavigationapp.admin.all_location.model.LocationData
+import com.example.arnavigationapp.admin.all_location.model.CollegeLocations
 import com.example.arnavigationapp.admin.all_location.single_location.LocationUpdatesLiveData
 import com.example.arnavigationapp.R
 
@@ -61,6 +62,28 @@ class AdminViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         fetchLocations()
+    }
+    
+    /**
+     * Initialize the database with predefined college location data
+     * @param collegeName Optional name of the college to initialize. If null, all colleges will be initialized.
+     * @param useCollegePrefix Whether to prefix block names with college names
+     * @param callback Callback function that will be called when initialization is complete
+     */
+    fun initializeCollegeLocations(
+        collegeName: String? = null,
+        useCollegePrefix: Boolean = true,
+        callback: (Boolean) -> Unit = {}
+    ) {
+        repository.initializeWithCollegeData(collegeName, useCollegePrefix) { success ->
+            if (success) {
+                // Refresh the location data after initialization
+                fetchLocations()
+                callback(true)
+            } else {
+                callback(false)
+            }
+        }
     }
 
     // Update location and accuracy

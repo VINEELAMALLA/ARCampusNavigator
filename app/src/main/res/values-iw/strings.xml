@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ניווט במציאות רבודה</string>
+    <string name="app_name">ARCampusNavigator</string>
     <string name="register">הירשם</string>
     <string name="login">התחבר</string>
     <string name="username">שם משתמש</string>

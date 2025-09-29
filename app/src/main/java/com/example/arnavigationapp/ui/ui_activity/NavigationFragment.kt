@@ -70,37 +70,24 @@ class NavigationFragment : Fragment() {
                     override fun onAnimationStart(animation: Animation?) {}
                     override fun onAnimationEnd(animation: Animation?) {
                         binding.btnStartNav.visibility = View.GONE
-                        binding.btnMap.visibility = View.VISIBLE
                         binding.btnList.visibility = View.VISIBLE
-                        binding.btnMap.startAnimation(fadeInAnimation)
                         binding.btnList.startAnimation(fadeInAnimation)
                     }
-
                     override fun onAnimationRepeat(animation: Animation?) {}
                 })
             } else {
-                binding.btnMap.startAnimation(fadeOutAnimation)
                 binding.btnList.startAnimation(fadeOutAnimation)
                 fadeOutAnimation.setAnimationListener(object : Animation.AnimationListener {
                     override fun onAnimationStart(animation: Animation?) {}
-
                     override fun onAnimationEnd(animation: Animation?) {
-                        binding.btnMap.visibility = View.GONE
                         binding.btnList.visibility = View.GONE
                         binding.btnStartNav.visibility = View.VISIBLE
                         binding.btnStartNav.startAnimation(moveDownAnimation)
                     }
-
                     override fun onAnimationRepeat(animation: Animation?) {}
                 })
             }
             isNavigationStarted = !isNavigationStarted
-        }
-        binding.btnNews.setOnClickListener {
-            val url = "https://www.hit.ac.il/news/"
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = android.net.Uri.parse(url)
-            startActivity(intent)
         }
 
         val buttonMenu: ImageButton = binding.buttonMenu
@@ -143,9 +130,6 @@ class NavigationFragment : Fragment() {
             findNavController().navigate(R.id.action_Nav_to_allLocationsFragments, bundle)
         }
 
-        binding.btnMap.setOnClickListener {
-            findNavController().navigate(R.id.action_Nav_to_Map)
-        }
 
         return binding.root
     }
@@ -177,11 +161,19 @@ class NavigationFragment : Fragment() {
         popupMenu.inflate(R.menu.menu)
         popupMenu.menu.findItem(R.id.action_add_location).isVisible =
             currentUser != null && currentUser.email == viewModel.admin
+        popupMenu.menu.findItem(R.id.action_initialize_locations).isVisible =
+            currentUser != null && currentUser.email == viewModel.admin
         popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.action_add_location -> {
                     // Handle add location
                     findNavController().navigate(R.id.action_Nav_to_addItemFragment)
+                    true
+                }
+                
+                R.id.action_initialize_locations -> {
+                    // Handle initialize locations
+                    findNavController().navigate(R.id.action_Nav_to_initializeLocations)
                     true
                 }
 
